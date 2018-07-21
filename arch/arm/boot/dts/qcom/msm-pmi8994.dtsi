@@ -204,7 +204,7 @@
 			#size-cells = <1>;
 
 			qcom,iterm-ma = <200>;
-			qcom,fastchg-current-ma = <3000>;
+			qcom,fastchg-current-ma = <4500>;
 			qcom,float-voltage-mv = <4400>;
 			qcom,resume-delta-mv = <200>;
 			qcom,chg-inhibit-fg;
@@ -212,7 +212,7 @@
 			qcom,dc-psy-ma = <1500>;
 			qcom,rparasitic-uohm = <100000>;
 			qcom,bms-psy-name = "bms";
-			qcom,thermal-mitigation = <2500 2000 1100 1000>;
+			qcom,thermal-mitigation = <2500 2000 1500 1000>;
 			qcom,parallel-usb-min-current-ma = <1400>;
 			qcom,parallel-usb-9v-min-current-ma = <900>;
 			qcom,parallel-allowed-lowering-ma = <500>;
