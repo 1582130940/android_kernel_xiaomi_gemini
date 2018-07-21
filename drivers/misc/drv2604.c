@@ -304,7 +304,7 @@ static void vibrator_enable(struct timed_output_dev *dev, int value)
 		wake_lock(&pDrv2604data->wklock);
 
 		if (drv2604_reg_read(pDrv2604data, RATED_VOLTAGE_REG) != actuator.rated_vol) {
-			printk(KERN_INFO "drv2604: Register values reset.\n");
+			pr_debug(KERN_INFO "drv2604: Register values reset.\n");
 			drv2604_change_mode(pDrv2604data, WORK_IDLE, DEV_READY);
 			schedule_timeout_interruptible(msecs_to_jiffies(STANDBY_WAKE_DELAY));
 			pDrv2604data->OTP = drv2604_reg_read(pDrv2604data, AUTOCAL_MEM_INTERFACE_REG) & AUTOCAL_MEM_INTERFACE_REG_OTP_MASK;
@@ -400,7 +400,7 @@ static void drv2604_firmware_load(const struct firmware *fw, void *context)
 					__FUNCTION__, pDrv2604data->fw_header.fw_magic,
 					pDrv2604data->fw_header.fw_size, pDrv2604data->fw_header.fw_chksum);
 		} else {
-			printk("%s, firmware good\n", __FUNCTION__);
+			pr_debug("%s, firmware good\n", __FUNCTION__);
 
 			drv2604_change_mode(pDrv2604data, WORK_IDLE, DEV_READY);
 
@@ -542,7 +542,7 @@ static ssize_t dev2604_write(struct file *filp, const char *buff, size_t len, lo
 				pDrv2604data->ReadBuff[i] = drv2604_reg_read(pDrv2604data, DRV2604_REG_RAM_DATA);
 			}
 		} else{
-			printk("%s, read fw len error\n", __FUNCTION__);
+			pr_debug("%s, read fw len error\n", __FUNCTION__);
 		}
 		break;
 	}
@@ -706,7 +706,7 @@ static void dev_init_platform_data(struct drv2604_data *pDrv2604data)
 				FEEDBACK_CONTROL_DEVICE_TYPE_MASK,
 				(actuator.device_type == LRA)?FEEDBACK_CONTROL_MODE_LRA:FEEDBACK_CONTROL_MODE_ERM);
 	} else{
-		printk("%s, OTP programmed\n", __FUNCTION__);
+		pr_debug("%s, OTP programmed\n", __FUNCTION__);
 	}
 
 	if (pDrv2604Platdata->loop == OPEN_LOOP) {
@@ -725,7 +725,7 @@ static void dev_init_platform_data(struct drv2604_data *pDrv2604data)
 				Control1_REG,
 				Control1_REG_DRIVE_TIME_MASK,
 				DriveTime);
-		printk("%s, LRA = %d, DriveTime=0x%x\n", __FUNCTION__, actuator.LRAFreq, DriveTime);
+		pr_debug("%s, LRA = %d, DriveTime=0x%x\n", __FUNCTION__, actuator.LRAFreq, DriveTime);
 	}
 
 	drv2604_set_bits(pDrv2604data,
@@ -777,7 +777,7 @@ static int dev_auto_calibrate(struct drv2604_data *pDrv2604data)
 
 	status = drv2604_reg_read(pDrv2604data, STATUS_REG);
 
-	printk("%s, calibration status =0x%x\n", __FUNCTION__, status);
+	pr_debug("%s, calibration status =0x%x\n", __FUNCTION__, status);
 
 
 	drv2604_reg_read(pDrv2604data, AUTO_CALI_RESULT_REG);
@@ -856,27 +856,27 @@ static int drv2604_probe(struct i2c_client *client, const struct i2c_device_id *
 	pDrv2604data->device_id = (status &DEV_ID_MASK);
 	switch (pDrv2604data->device_id) {
 	case DRV2605_VER_1DOT1:
-		printk("drv2604 driver found: drv2605 v1.1.\n");
+		pr_debug("drv2604 driver found: drv2605 v1.1.\n");
 		break;
 	case DRV2605_VER_1DOT0:
-		printk("drv2604 driver found: drv2605 v1.0.\n");
+		pr_debug("drv2604 driver found: drv2605 v1.0.\n");
 		break;
 	case DRV2604:
-		printk(KERN_ALERT"drv2604 driver found: drv2604.\n");
+		pr_debug(KERN_ALERT"drv2604 driver found: drv2604.\n");
 		break;
 	case DRV2604L:
-		printk(KERN_ALERT"drv2604 driver found: drv2604L.\n");
+		pr_debug(KERN_ALERT"drv2604 driver found: drv2604L.\n");
 		break;
 	case DRV2605L:
-		printk(KERN_ALERT"drv2604 driver found: drv2605L.\n");
+		pr_debug(KERN_ALERT"drv2604 driver found: drv2605L.\n");
 		break;
 	default:
-		printk(KERN_ERR"drv2604 driver found: unknown.\n");
+		pr_debug(KERN_ERR"drv2604 driver found: unknown.\n");
 		break;
 	}
 
 	if (pDrv2604data->device_id != DRV2604 && pDrv2604data->device_id != DRV2604L) {
-		printk("%s, status(0x%x),device_id(%d) fail\n",
+		pr_debug("%s, status(0x%x),device_id(%d) fail\n",
 			__FUNCTION__, status, pDrv2604data->device_id);
 		goto exit_gpio_request_failed;
 	} else{
@@ -910,7 +910,7 @@ static int drv2604_probe(struct i2c_client *client, const struct i2c_device_id *
 	Haptics_init(pDrv2604data);
 
 	pDRV2604data = pDrv2604data;
-	printk("drv2604 probe succeeded\n");
+	pr_debug("drv2604 probe succeeded\n");
 
 	return 0;
 
@@ -945,7 +945,7 @@ static int drv2604_remove(struct i2c_client *client)
 	unregister_early_suspend(&pDrv2604data->early_suspend);
 #endif
 
-	printk(KERN_ALERT"drv2604 remove");
+	pr_debug(KERN_ALERT"drv2604 remove");
 
 	return 0;
 }
