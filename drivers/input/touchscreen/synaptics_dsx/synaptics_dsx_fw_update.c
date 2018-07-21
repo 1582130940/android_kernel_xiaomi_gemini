@@ -55,7 +55,7 @@
 #define FB_READY_TIMEOUT_S 30
 #endif
 #endif
- */
+*/
 #define FORCE_UPDATE false
 #define DO_LOCKDOWN false
 
@@ -2367,7 +2367,7 @@ static int fwu_get_image_firmware_id(unsigned int *fw_id)
 	struct synaptics_rmi4_data *rmi4_data = fwu->rmi4_data;
 
 	if (fwu->img.contains_firmware_id) {
-		 *fw_id = fwu->img.firmware_id;
+		*fw_id = fwu->img.firmware_id;
 	} else {
 		strptr = strnstr(fwu->image_name, "PR", MAX_IMAGE_NAME_LEN);
 		if (!strptr) {
@@ -2386,10 +2386,12 @@ static int fwu_get_image_firmware_id(unsigned int *fw_id)
 					__func__);
 			return -ENOMEM;
 		}
-		while (strptr[index] >= '0' && strptr[index] <= '9') {
+		while ((index < MAX_FIRMWARE_ID_LEN - 1) && strptr[index] >= '0'
+						&& strptr[index] <= '9') {
 			firmware_id[index] = strptr[index];
 			index++;
 		}
+		firmware_id[index] = '\0';
 
 		retval = sstrtoul(firmware_id, 10, (unsigned long *)fw_id);
 		kfree(firmware_id);

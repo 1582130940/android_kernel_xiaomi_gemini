@@ -195,6 +195,13 @@ config LAST_TOUCH_EVENTS
 	---help---
 	  Say Y here if you want to get last touch events.
 
+config SENSORS_HALL
+	bool "Hall sensor"
+	depends on INPUT
+	---help---
+	 Say y here if you want to use this hall sensor driver, it
+	 is like a switch. For example, lid.
+
 comment "Input Device Drivers"
 
 source "drivers/input/keyboard/Kconfig"

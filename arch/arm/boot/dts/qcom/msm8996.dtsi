@@ -1,4 +1,4 @@
-/* Copyright (c) 2014-2017, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2014-2018, The Linux Foundation. All rights reserved.
  * Copyright (C) 2018 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -22,7 +22,7 @@
 	interrupt-parent = <&intc>;
 
 	chosen {
-		bootargs = "sched_enable_hmp=1 sched_enable_power_aware=1 app_setting.use_32bit_app_setting=1";
+		bootargs = "sched_enable_hmp=1 sched_enable_power_aware=1 app_setting.use_32bit_app_setting=1 kpti=1";
 	};
 
 	aliases {
@@ -171,7 +171,7 @@
 					dev = "/dev/block/platform/soc/7464900.sdhci/by-name/system";
 					type = "ext4";
 					mnt_flags = "ro,barrier=1,discard";
-					fsmgr_flags = "wait,verify";
+					fsmgr_flags = "wait";
 					status = "ok";
 			};
 
@@ -2950,7 +2950,7 @@
 			qcom,mitigation-freq-khz = <576000>;
 			qcom,vph-high-threshold-uv = <3500000>;
 			qcom,vph-low-threshold-uv = <3300000>;
-			qcom,soc-low-threshold = <5>;
+			qcom,soc-low-threshold = <10>;
 			qcom,thermal-handle = <&msm_thermal_freq>;
 		};
 	};
