@@ -14,7 +14,6 @@
  *limitations under the License.
  */
 
-#define DEBUG
 #include "tfa_service.h"
 #include "tfa_container.h"
 #include "tfa_config.h"

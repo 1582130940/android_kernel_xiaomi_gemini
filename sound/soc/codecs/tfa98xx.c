@@ -12,7 +12,6 @@
  * option) any later version.
  */
 
-#define DEBUG
 #define pr_fmt(fmt) "%s(): " fmt, __func__
 
 #include <linux/module.h>
