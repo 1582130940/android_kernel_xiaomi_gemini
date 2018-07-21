@@ -317,7 +317,7 @@ static struct fg_mem_data fg_backup_regs[FG_BACKUP_MAX] = {
 	BACKUP(MAH_TO_SOC,	0x4A0,   0,      4,     -EINVAL),
 };
 
-static int fg_debug_mask = FG_IRQS | FG_STATUS | FG_AGING | FG_POWER_SUPPLY;
+static int fg_debug_mask;
 module_param_named(
 	debug_mask, fg_debug_mask, int, S_IRUSR | S_IWUSR
 );
@@ -2567,7 +2567,7 @@ static int fg_is_batt_id_valid(struct fg_chip *chip)
 	}
 
 	if (fg_debug_mask & FG_MISC)
-	       pr_debug("fg batt sts 0x%x\n", fg_batt_sts);
+		pr_debug("fg batt sts 0x%x\n", fg_batt_sts);
 
 	return (fg_batt_sts & BATT_IDED) ? 1 : 0;
 }
@@ -2722,7 +2722,7 @@ static void soc_work_fn(struct work_struct *work)
 	static int prev_soc = -EINVAL;
 
 	soc = get_prop_capacity(chip);
-	pr_info("adjust_soc: s %d r %d i %d v %d t %d\n",
+	pr_debug("adjust_soc: s %d r %d i %d v %d t %d\n",
 			soc,
 			get_sram_prop_now(chip, FG_DATA_BATT_ESR),
 			get_sram_prop_now(chip, FG_DATA_CURRENT),
@@ -4448,7 +4448,7 @@ static int fg_restore_soc(struct fg_chip *chip)
 }
 
 #define NOM_CAP_REG			0x4F4
-#define CAPACITY_DELTA_DECIPCT		200
+#define CAPACITY_DELTA_DECIPCT		500
 static int load_battery_aging_data(struct fg_chip *chip)
 {
 	int rc = 0;
