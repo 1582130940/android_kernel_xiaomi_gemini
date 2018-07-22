@@ -408,6 +408,9 @@ KBUILD_CFLAGS   := -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -Wno-format-security \
 		   -fdiagnostics-color=always \
 		   -Wno-unused-variable -Wno-unused-function -Wno-unused-label \
+		   -g0 -DNDEBUG \
+		   -fivopts -fopenmp \
+		   -fmodulo-sched -fmodulo-sched-allow-regmoves \
 		   -std=gnu89
 
 # Optimization for Kryo
