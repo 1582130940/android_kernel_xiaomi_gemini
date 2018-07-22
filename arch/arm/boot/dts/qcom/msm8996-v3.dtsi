@@ -339,7 +339,6 @@
 				qcom,bus-freq = <0>;
 				qcom,bus-min = <0>;
 				qcom,bus-max = <0>;
-
 			};
 		};
 
