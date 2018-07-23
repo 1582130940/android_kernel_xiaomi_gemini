@@ -588,7 +588,6 @@ static int mdss_dsi_get_dt_vreg_data(struct device *dev,
 		}
 		mp->vreg_config[i].load[DSS_REG_MODE_ENABLE] = tmp;
 
-
 		/* disable-load */
 		rc = of_property_read_u32(supply_node,
 			"qcom,supply-disable-load", &tmp);
@@ -598,7 +597,6 @@ static int mdss_dsi_get_dt_vreg_data(struct device *dev,
 			goto error;
 		}
 		mp->vreg_config[i].load[DSS_REG_MODE_DISABLE] = tmp;
-
 
 		/* ulp-load */
 		/*rc = of_property_read_u32(supply_node,
@@ -653,17 +651,13 @@ static int mdss_dsi_get_dt_vreg_data(struct device *dev,
 			mp->vreg_config[i].post_off_sleep = tmp;
 		}
 
-
 		pr_debug("%s: %s min=%d, max=%d, enable=%d, disable=%d, preonsleep=%d, postonsleep=%d, preoffsleep=%d, postoffsleep=%d\n",
 			__func__,
 			mp->vreg_config[i].vreg_name,
 			mp->vreg_config[i].min_voltage,
 			mp->vreg_config[i].max_voltage,
-
-
 			mp->vreg_config[i].load[DSS_REG_MODE_ENABLE],
 			mp->vreg_config[i].load[DSS_REG_MODE_DISABLE],
-
 			mp->vreg_config[i].pre_on_sleep,
 			mp->vreg_config[i].post_on_sleep,
 			mp->vreg_config[i].pre_off_sleep,
@@ -1246,7 +1240,7 @@ static int mdss_dsi_off(struct mdss_panel_data *pdata, int power_state)
 
 	panel_info = &ctrl_pdata->panel_data.panel_info;
 
-	pr_info("%s+: ctrl=%pK ndx=%d power_state=%d\n",
+	pr_debug("%s+: ctrl=%pK ndx=%d power_state=%d\n",
 		__func__, ctrl_pdata, ctrl_pdata->ndx, power_state);
 	ctrl_pdata->dsi_pipe_ready = false;
 
@@ -1302,8 +1296,7 @@ panel_power_ctrl:
 	/* Initialize Max Packet size for DCS reads */
 	ctrl_pdata->cur_max_pkt_size = 0;
 end:
-
-	pr_info("%s-:\n", __func__);
+	pr_debug("%s-:\n", __func__);
 
 	return ret;
 }
@@ -1429,7 +1422,7 @@ int mdss_dsi_on(struct mdss_panel_data *pdata)
 		mdss_dsi_validate_debugfs_info(ctrl_pdata);
 
 	cur_power_state = pdata->panel_info.panel_power_state;
-	pr_info("%s+: ctrl=%pK ndx=%d cur_power_state=%d\n", __func__,
+	pr_debug("%s+: ctrl=%pK ndx=%d cur_power_state=%d\n", __func__,
 		ctrl_pdata, ctrl_pdata->ndx, cur_power_state);
 
 	pinfo = &pdata->panel_info;
@@ -1519,7 +1512,7 @@ int mdss_dsi_on(struct mdss_panel_data *pdata)
 
 end:
 	ctrl_pdata->dsi_pipe_ready = true;
-	pr_info("%s-:\n", __func__);
+	pr_debug("%s-:\n", __func__);
 	return ret;
 }
 
@@ -2939,8 +2932,6 @@ static struct device_node *mdss_dsi_find_panel_of_node(
 		if (!strcmp(panel_name, NONE_PANEL))
 			goto exit;
 
-
-
 		mdss_node = of_parse_phandle(pdev->dev.of_node,
 			"qcom,mdss-mdp", 0);
 		if (!mdss_node) {
@@ -3011,7 +3002,6 @@ static struct device_node *mdss_dsi_config_panel(struct platform_device *pdev,
 		of_node_put(dsi_pan_node);
 		return NULL;
 	}
-
 
 	rc = mdss_dsi_panel_init(dsi_pan_node, ctrl_pdata, ndx);
 	if (rc) {

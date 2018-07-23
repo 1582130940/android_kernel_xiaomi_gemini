@@ -2386,7 +2386,6 @@
 			};
 		};
 
-
 		cci0_active: cci0_active {
 			mux {
 				/* CLK, DATA */

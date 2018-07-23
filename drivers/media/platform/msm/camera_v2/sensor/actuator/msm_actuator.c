@@ -129,7 +129,6 @@ static void msm_actuator_parse_i2c_params(struct msm_actuator_ctrl_t *a_ctrl,
 
 	} else {
 		for (i = 0; i < size; i++) {
-
 			if (write_arr[i].reg_write_type == MSM_ACTUATOR_WRITE_DAC) {
 				value = (next_lens_position <<
 					write_arr[i].data_shift) |
@@ -606,10 +605,10 @@ static int32_t msm_actuator_move_focus(
 	int dir = move_params->dir;
 	int32_t num_steps = move_params->num_steps;
 	struct msm_camera_i2c_reg_setting reg_setting;
-    int distance = 0;
-    int target_margin = 0;
-    int origin_total = 0;
-    int hw_version = 0;
+	int distance = 0;
+	int target_margin = 0;
+	int origin_total = 0;
+	int hw_version = 0;
 
 	CDBG("called, dir %d, num_steps %d\n", dir, num_steps);
 
@@ -716,13 +715,6 @@ static int32_t msm_actuator_move_focus(
 	hw_version = get_hw_version_devid();
 	if (1 == hw_version || 2 == hw_version) {
 #define FL 4
-
-
-
-
-
-
-
 		origin_total = a_ctrl->total_steps * 100 / 120;
 		target_margin = origin_total * 15 / 100;
 		if (target_step_pos > target_margin) {

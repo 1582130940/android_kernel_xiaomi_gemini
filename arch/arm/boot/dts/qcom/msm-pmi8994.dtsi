@@ -511,7 +511,7 @@
 				qcom,qpnp-lab-init-amoled-voltage = <4600000>;
 				qcom,qpnp-lab-init-lcd-voltage = <5500000>;
 
-				qcom,qpnp-lab-soft-start = <400>;
+				qcom,qpnp-lab-soft-start = <800>;
 
 				qcom,qpnp-lab-full-pull-down;
 				qcom,qpnp-lab-pull-down-enable;
@@ -519,7 +519,7 @@
 									<1600>;
 				qcom,qpnp-lab-limit-maximum-current = <800>;
 				qcom,qpnp-lab-limit-max-current-enable;
-				qcom,qpnp-lab-ps-threshold = <30>;
+				qcom,qpnp-lab-ps-threshold = <20>;
 				qcom,qpnp-lab-ps-enable;
 				qcom,qpnp-lab-nfet-size = <100>;
 				qcom,qpnp-lab-pfet-size = <100>;
@@ -544,7 +544,7 @@
 			linux,default-trigger = "bkl-trigger";
 			qcom,fdbk-output = "auto";
 			qcom,vref-mv = <350>;
-			qcom,switch-freq-khz = <600>;
+			qcom,switch-freq-khz = <800>;
 			qcom,ovp-mv = <29500>;
 			qcom,ilim-ma = <980>;
 			qcom,boost-duty-ns = <26>;
@@ -552,7 +552,7 @@
 			qcom,dim-mode = "hybrid";
 			qcom,hyb-thres = <625>;
 			qcom,sync-dly-us = <800>;
-			qcom,fs-curr-ua = <20000>;
+			qcom,fs-curr-ua = <25000>;
 			qcom,cons-sync-write-delay-us = <1000>;
 			qcom,en-cabc;
 			qcom,led-strings-list = [00 01];
@@ -569,7 +569,7 @@
 			qcom,pmic-revid = <&pmi8994_revid>;
 			vcc_pon-supply = <&pon_perph_reg>;
 			qcom,play-mode = "direct";
-			qcom,wave-play-rate-us = <4166>;
+			qcom,wave-play-rate-us = <5263>;
 			qcom,actuator-type = "lra";
 			qcom,wave-shape = "sine";
 			qcom,vmax-mv = <2200>;

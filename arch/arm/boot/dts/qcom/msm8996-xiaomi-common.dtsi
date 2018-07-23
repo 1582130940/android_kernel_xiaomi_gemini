@@ -29,11 +29,11 @@
 };
 
 &ufs_ice {
-        status = "ok";
+	status = "ok";
 };
 
 &sdcc1_ice {
-        status = "ok";
+	status = "ok";
 };
 
 &ufsphy1 {
@@ -547,7 +547,7 @@
 	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
 };
 
-/{
+/ {
 	mtp_batterydata: qcom,battery-data {
 		qcom,batt-id-range-pct = <15>;
 		#include "batterydata-itech-3020mah.dtsi"
@@ -714,6 +714,7 @@
 
 	i2c@75b7000 {
 		status = "ok";
+
 		tfa98xx@34 {
 			reg = <0x34>;
 			compatible = "nxp,tfa9890";
@@ -761,6 +762,7 @@
 			gpio-key,wakeup;
 			debounce-interval = <15>;
 		};
+
 		hall_key0 {
 			label = "hall_key0";
 			gpios = <&tlmm 124 0x01>;
@@ -769,8 +771,6 @@
 			gpio-key,wakeup;
 			debounce-interval = <15>;
 		};
-
-
 	};
 
 	pwm_ir {

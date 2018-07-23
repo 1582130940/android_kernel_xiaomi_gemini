@@ -368,6 +368,7 @@ config IR_PWM
 
 	   To compile this driver as a module, choose M here: the module will
 	   be called pwm-ir.
+
 config RC_ST
 	tristate "ST remote control receiver"
 	depends on RC_CORE

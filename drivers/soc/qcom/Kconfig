@@ -910,6 +910,7 @@ config WCD_DSP_GLINK
 	   This option enables driver which provides communication interface
 	   between MSM and WCD DSP over glink transport protocol. This driver
 	   provides read and write interface via char device.
+
 config SERIAL_NUM
 	bool "Enable Serial Number Proc Interface"
 	help

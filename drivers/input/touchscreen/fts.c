@@ -58,7 +58,7 @@
 #endif
 
 #ifdef CONFIG_HAS_EARLYSUSPEND
-	#include <linux/earlysuspend.h>
+#include <linux/earlysuspend.h>
 #endif
 
 #ifdef CONFIG_EXYNOS_TOUCH_DAEMON
@@ -415,7 +415,6 @@ static ssize_t fts_glove_control_store(struct device *dev, struct device_attribu
 
 	return count;
 }
-
 
 static ssize_t fts_cover_control_show(struct device *dev, struct device_attribute *attr,
 				char *buf)
@@ -1568,6 +1567,7 @@ static ssize_t fts_production_test_show(struct device *dev, struct device_attrib
 
 					while (self_ix2_max_index < tx_num)
 						self_ix2_max[self_ix2_max_index++] = configData[i]<<8|configData[i+1];
+
 					i = i + 2;
 
 					while (self_ix2_max_index < self_ix2_max_size)
@@ -2572,7 +2572,6 @@ static ssize_t fts_read_self_strength_show(struct device *dev, struct device_att
 	return count;
 
 }
-
 
 static DEVICE_ATTR(fwupdate, (S_IRUGO|S_IWUSR|S_IWGRP), fts_sysfs_fwupdate_show, fts_fw_control_store);
 /* */

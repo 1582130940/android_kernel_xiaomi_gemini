@@ -1119,7 +1119,6 @@ static int get_prop_charge_type(struct smbchg_chip *chip)
 	return POWER_SUPPLY_CHARGE_TYPE_NONE;
 }
 
-
 static int set_property_on_fg(struct smbchg_chip *chip,
 		enum power_supply_property prop, int val)
 {
@@ -8769,7 +8768,6 @@ static void rerun_hvdcp_det_if_necessary(struct smbchg_chip *chip)
 			pr_err("APSD rerun failed rc=%d\n", rc);
 
 		read_usb_type(chip, &usb_type_name, &usb_supply_type);
-
 		if (usb_supply_type != POWER_SUPPLY_TYPE_USB_DCP) {
 			msleep(500);
 			pr_smb(PR_STATUS, "Rerun APSD as type !=DCP\n");

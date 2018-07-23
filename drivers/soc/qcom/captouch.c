@@ -64,10 +64,10 @@ struct captouch_drvdata {
 	struct cdev	captouch_cdev;
 	struct device	*dev;
 	char		*captouch_node;
-		 wait_queue_head_t eventq;
+	wait_queue_head_t eventq;
 	unsigned int	event;
 	struct mutex	mutex;
-		 bool            homekey_enabled;
+	bool            homekey_enabled;
 	struct timer_list timer;
 	bool		timer_scheduled;
 	struct wake_lock		ttw_wl;
@@ -224,8 +224,6 @@ static ssize_t captouch_write(struct file *filp,
 	buf[cnt] = '\0';
 	cmp = strstrip(buf);
 
-
-
 	mutex_lock(&drvdata->mutex);
 	if (drvdata->timer_scheduled) {
 		dev_info(drvdata->dev, "%s: touch event already scheduled\n", __func__);
@@ -259,7 +257,7 @@ static ssize_t captouch_write(struct file *filp,
 }
 
 static unsigned int captouch_poll(struct file *filp,
-								  struct poll_table_struct *wait)
+	struct poll_table_struct *wait)
 {
 	struct captouch_drvdata *drvdata = filp->private_data;
 	unsigned int mask = 0;

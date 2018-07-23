@@ -272,8 +272,6 @@ static int pn548_dev_open(struct inode *inode, struct file *filp)
 
 	filp->private_data = pn548_dev;
 
-
-
 	pn548_dev_ioctl(filp, PN548_SET_PWR, 1);
 	pn548_dev_ioctl(filp, PN548_SET_PWR, 0);
 	pn548_dev_ioctl(filp, PN548_SET_PWR, 1);
@@ -343,10 +341,10 @@ static int pn548_clk_enable(struct device *dev)
 	}
 
 
-		 ret = clk_prepare(clk_rf);
-		 if (ret) {
+	ret = clk_prepare(clk_rf);
+	if (ret) {
 		pr_err("nfc: failed to call clk_prepare\n");
-				return ret;
+		return ret;
 	}
 
 	/*

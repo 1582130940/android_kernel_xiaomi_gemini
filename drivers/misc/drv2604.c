@@ -161,8 +161,8 @@ static int drv2604_set_go_bit(struct drv2604_data *pDrv2604data, unsigned char v
 
 static void drv2604_poll_go_bit(struct drv2604_data *pDrv2604data)
 {
-    while (drv2604_reg_read(pDrv2604data, GO_REG) == GO)
-      schedule_timeout_interruptible(msecs_to_jiffies(GO_BIT_POLL_INTERVAL));
+	while (drv2604_reg_read(pDrv2604data, GO_REG) == GO)
+		schedule_timeout_interruptible(msecs_to_jiffies(GO_BIT_POLL_INTERVAL));
 }
 
 static int drv2604_set_rtp_val(struct drv2604_data *pDrv2604data, char value)
@@ -194,7 +194,7 @@ static void drv2604_change_mode(struct drv2604_data *pDrv2604data, char work_mod
 	} else if (dev_mode == DEV_READY) {
 		if ((work_mode != pDrv2604data->work_mode)
 				|| (dev_mode != pDrv2604data->dev_mode)) {
-				pDrv2604data->work_mode = work_mode;
+			pDrv2604data->work_mode = work_mode;
 			pDrv2604data->dev_mode = dev_mode;
 			if ((pDrv2604data->work_mode == WORK_VIBRATOR)
 					|| (pDrv2604data->work_mode == WORK_PATTERN_RTP_ON)
@@ -356,9 +356,6 @@ static void vibrator_work_routine(struct work_struct *work)
 	} else if (pDrv2604data->work_mode == WORK_SEQ_PLAYBACK) {
 		play_effect(pDrv2604data);
 
-
-
-
 	}
 	mutex_unlock(&pDrv2604data->lock);
 }
@@ -500,7 +497,7 @@ static ssize_t dev2604_write(struct file *filp, const char *buff, size_t len, lo
 		 }
 	case HAPTIC_CMDID_STOP:
 	{
-			break;
+		break;
 	}
 
 	case HAPTIC_CMDID_UPDATE_FIRMWARE:
@@ -516,8 +513,8 @@ static ssize_t dev2604_write(struct file *filp, const char *buff, size_t len, lo
 			result = copy_from_user(fw_buffer, &buff[1], fw.size);
 			if (result == 0) {
 				pr_debug("%s, fwsize=%lu, f:%x, l:%x\n", __FUNCTION__, fw.size, buff[1], buff[len-1]);
-					fw.data = (const unsigned char *)fw_buffer;
-					drv2604_firmware_load(&fw, (void *)pDrv2604data);
+				fw.data = (const unsigned char *)fw_buffer;
+				drv2604_firmware_load(&fw, (void *)pDrv2604data);
 			}
 			wake_unlock(&pDrv2604data->wklock);
 
@@ -600,12 +597,12 @@ static ssize_t dev2604_write(struct file *filp, const char *buff, size_t len, lo
 	return len;
 }
 
-
 static struct file_operations fops = {
 	.open = dev2604_open,
 	.read = dev2604_read,
 	.write = dev2604_write,
 };
+
 static int Haptics_init(struct drv2604_data *pDrv2604data)
 {
 	int reval = -ENOMEM;
@@ -657,7 +654,7 @@ static int Haptics_init(struct drv2604_data *pDrv2604data)
 			&waveform_attrs[0].attr) < 0) {
 		printk(KERN_ALERT"drv2604: fail to create sysfs\n");
 		goto fail3;
-	 }
+	}
 
 
 	hrtimer_init(&pDrv2604data->timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
@@ -762,7 +759,6 @@ static void dev_init_platform_data(struct drv2604_data *pDrv2604data)
 	drv2604_reg_write(pDrv2604data, AUTO_CALI_BACK_EMF_RESULT_REG, 0x8e);
 	drv2604_set_bits(pDrv2604data, FEEDBACK_CONTROL_REG, 0x03, 0x01);
 
-
 }
 
 static int dev_auto_calibrate(struct drv2604_data *pDrv2604data)
@@ -771,7 +767,6 @@ static int dev_auto_calibrate(struct drv2604_data *pDrv2604data)
 
 	drv2604_change_mode(pDrv2604data, WORK_CALIBRATION, DEV_READY);
 	drv2604_set_go_bit(pDrv2604data, GO);
-
 
 	drv2604_poll_go_bit(pDrv2604data);
 

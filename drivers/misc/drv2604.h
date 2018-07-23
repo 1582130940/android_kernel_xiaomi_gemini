@@ -348,9 +348,6 @@ struct drv2604_data {
 	volatile int should_stop;
 	struct timed_output_dev to_dev;
 
-
-
-
 	struct drv2604_fw_header fw_header;
 };
 

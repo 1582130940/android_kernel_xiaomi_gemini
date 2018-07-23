@@ -895,7 +895,7 @@ qpnp_pon_lpk_reset_type_change(struct qpnp_pon *pon, u32 reset_type)
 		QPNP_PON_S2_CNTL_EN, QPNP_PON_S2_CNTL_EN);
 	if (rc)
 		pr_err("PMIC Unable to config s2"
-				" enable. rc: %d\n", rc);
+			" enable. rc: %d\n", rc);
 
 	return rc;
 }

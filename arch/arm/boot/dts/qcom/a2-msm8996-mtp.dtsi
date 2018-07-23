@@ -31,7 +31,6 @@
 	};
 
 	i2c@75b7000 {
-
 		drv2604@5a {
 			compatible = "vibrator,drv2604";
 			reg = <0x5a>;

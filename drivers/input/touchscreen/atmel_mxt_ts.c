@@ -1886,7 +1886,6 @@ static irqreturn_t mxt_read_messages_t44(struct mxt_data *data)
 		data->T5_msg_size + 1, data->msg_buf);
 	if (ret) {
 		dev_err(dev, "Failed to read T44 and T5 (%d)\n", ret);
-
 		return IRQ_NONE;
 	}
 
@@ -3531,7 +3530,7 @@ static ssize_t mxt_update_firmware(struct device *dev,
 	int len = 0;
 
 	if (upgraded)
-		 *upgraded = false;
+		*upgraded = false;
 
 	if (count <= 0)
 		return -EINVAL;
@@ -3568,7 +3567,7 @@ static ssize_t mxt_update_firmware(struct device *dev,
 		data->msg_buf = NULL;
 
 		if (upgraded)
-			 *upgraded = true;
+			*upgraded = true;
 
 		mxt_initialize(data);
 	}
@@ -3695,10 +3694,10 @@ static int mxt_check_mem_access_params(struct mxt_data *data, loff_t off,
 		return -EIO;
 
 	if (off + *count > data->mem_size)
-		 *count = data->mem_size - off;
+		*count = data->mem_size - off;
 
 	if (*count > MXT_MAX_BLOCK_WRITE)
-		 *count = MXT_MAX_BLOCK_WRITE;
+		*count = MXT_MAX_BLOCK_WRITE;
 
 	return 0;
 }
@@ -6585,7 +6584,7 @@ static ssize_t mxt_selftest_read(struct file *file, char __user *buf, size_t cou
 
 	snprintf(buf, sizeof(g_mxt_data->result_type), "%d", g_mxt_data->result_type);
 
-	 *pos += strlen(buf);
+	*pos += strlen(buf);
 
 	return strlen(buf);
 }
