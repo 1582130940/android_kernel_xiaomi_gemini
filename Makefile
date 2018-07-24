@@ -415,7 +415,7 @@ KBUILD_CFLAGS   := -Wundef -Wstrict-prototypes -Wno-trigraphs \
 
 # Optimization for Kryo
 KBUILD_CFLAGS	+= $(call cc-option,-march=armv8-a+crypto+crc)
-KBUILD_CFLAGS	+= $(call cc-option,-mcpu=cortex-a57+crypto+crc)
+KBUILD_CFLAGS	+= $(call cc-option,-mcpu=cortex-a53+crypto+crc)
 KBUILD_CFLAGS	+= $(call cc-option,-mtune=cortex-a57.cortex-a53)
 
 # Disable Kryo 835769/843419 Fix
