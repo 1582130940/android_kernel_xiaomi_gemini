@@ -5,7 +5,7 @@ export CLANG_PATH="${HOME}/prebuilts/clang/host/linux-x86/clang-r328903"
 export CLANG_TRIPLE="aarch64-linux-gnu-"
 export CC="$CLANG_PATH/bin/clang"
 export KBUILD_COMPILER_STRING="`cat $CLANG_PATH/VERSION`"
-export CROSS_COMPILE="${HOME}/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-gnu-4.9.4/bin/aarch64-linux-gnu-"
+export CROSS_COMPILE="${HOME}/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-gnu-6.4.1/bin/aarch64-linux-gnu-"
 
 msm8996(){
 date="`date +%Y%m%d%H%M%S`"
