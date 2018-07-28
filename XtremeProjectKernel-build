@@ -8,14 +8,14 @@ export KBUILD_COMPILER_STRING="`cat $CLANG_PATH/VERSION`"
 export CROSS_COMPILE="${HOME}/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-gnu-6.4.1/bin/aarch64-linux-gnu-"
 
 msm8996(){
-rm ~/AnyKernel2/Image.gz-dtb
+rm AnyKernel2/Image.gz-dtb
 date="`date +%Y%m%d%H%M%S`"
 zipname="Mi_MSM8996_Xtreme™-Project_Kernel-MIUI-$date.zip"
 export KBUILD_BUILD_USER="1582130940"
 export KBUILD_BUILD_HOST="Hitler-Ubuntu"
 make O=out mrproper&&make O=out msm8996_user_defconfig&&make O=out -j32
-cp -f out/arch/arm64/boot/Image.gz-dtb ~/AnyKernel2
-cd ~/AnyKernel2
+cp -f out/arch/arm64/boot/Image.gz-dtb AnyKernel2
+cd AnyKernel2
 zip -9 -r "$zipname" *
 cp -f "$zipname" ~
 rm -f "$zipname"
