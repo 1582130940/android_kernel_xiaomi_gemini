@@ -3451,7 +3451,6 @@ static int rcu_cpu_notify(struct notifier_block *self,
 	struct rcu_node *rnp = rdp->mynode;
 	struct rcu_state *rsp;
 
-	trace_rcu_utilization(TPS("Start CPU hotplug"));
 	switch (action) {
 	case CPU_UP_PREPARE:
 	case CPU_UP_PREPARE_FROZEN:
@@ -3484,7 +3483,6 @@ static int rcu_cpu_notify(struct notifier_block *self,
 	default:
 		break;
 	}
-	trace_rcu_utilization(TPS("End CPU hotplug"));
 	return NOTIFY_OK;
 }
 
