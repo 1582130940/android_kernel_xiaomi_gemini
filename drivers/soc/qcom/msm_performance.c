@@ -29,7 +29,6 @@
 static unsigned int use_input_evts_with_hi_slvt_detect;
 static struct mutex managed_cpus_lock;
 
-
 /* Maximum number to clusters that this module will manage*/
 static unsigned int num_clusters;
 struct cluster {
@@ -116,7 +115,6 @@ static int init_events_group(void);
 static int register_input_handler(void);
 static void unregister_input_handler(void);
 
-
 static DEFINE_PER_CPU(unsigned int, cpu_power_cost);
 
 struct load_stats {
@@ -146,7 +144,6 @@ static unsigned int workload_detect;
 #define IO_DETECT	1
 #define MODE_DETECT	2
 #define PERF_CL_PEAK_DETECT	4
-
 
 /* IOwait related tunables */
 static unsigned int io_enter_cycles = 4;
@@ -184,8 +181,6 @@ static struct input_handler *handler;
 #define CLUSTER_0_THRESHOLD_FREQ	147000
 #define CLUSTER_1_THRESHOLD_FREQ	190000
 #define INPUT_EVENT_CNT_THRESHOLD	15
-
-
 
 /**************************sysfs start********************************/
 
@@ -600,7 +595,6 @@ static const struct kernel_param_ops param_ops_pwr_trig_thr = {
 	.get = get_pwr_cl_trigger_threshold,
 };
 device_param_cb(pwr_cl_trig_thr, &param_ops_pwr_trig_thr, NULL, 0644);
-
 
 static int freq_greater_than_threshold(struct cluster *cl, int idx)
 {
@@ -1020,7 +1014,6 @@ static const struct kernel_param_ops param_ops_perf_cl_peak_enter_cycles = {
 device_param_cb(perf_cl_peak_enter_cycles, &param_ops_perf_cl_peak_enter_cycles,
 		NULL, 0644);
 
-
 static int set_perf_cl_peak_exit_cycles(const char *buf,
 				const struct kernel_param *kp)
 {
@@ -1076,7 +1069,6 @@ static const struct kernel_param_ops param_ops_perf_cl_peak_exit_cycles = {
 device_param_cb(perf_cl_peak_exit_cycles, &param_ops_perf_cl_peak_exit_cycles,
 		 NULL, 0644);
 
-
 static int set_single_enter_cycles(const char *buf,
 				const struct kernel_param *kp)
 {
@@ -1130,7 +1122,6 @@ static const struct kernel_param_ops param_ops_single_enter_cycles = {
 };
 device_param_cb(single_enter_cycles, &param_ops_single_enter_cycles,
 		NULL, 0644);
-
 
 static int set_single_exit_cycles(const char *buf,
 				const struct kernel_param *kp)
@@ -1454,7 +1445,6 @@ static const struct kernel_param_ops param_ops_workload_detect = {
 };
 device_param_cb(workload_detect, &param_ops_workload_detect, NULL, 0644);
 
-
 static int set_input_evts_with_hi_slvt_detect(const char *buf,
 					const struct kernel_param *kp)
 {
@@ -1565,7 +1555,6 @@ static int perf_adjust_notify(struct notifier_block *nb, unsigned long val,
 	struct cpu_status *cpu_st = &per_cpu(cpu_stats, cpu);
 	unsigned int min = cpu_st->min, max = cpu_st->max;
 
-
 	if (val != CPUFREQ_ADJUST)
 		return NOTIFY_OK;
 
@@ -1591,7 +1580,6 @@ static bool check_notify_status(void)
 	struct cluster *cl;
 	bool any_change = false;
 	unsigned long flags;
-
 
 	for (i = 0; i < num_clusters; i++) {
 		cl = managed_clusters[i];
@@ -1812,7 +1800,6 @@ static void start_timer(struct cluster *cl)
 	}
 	spin_unlock_irqrestore(&cl->timer_lock, flags);
 }
-
 
 static void disable_perf_cl_peak_timer(struct cluster *cl)
 {
