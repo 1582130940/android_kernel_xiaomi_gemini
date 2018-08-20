@@ -215,7 +215,7 @@ static void bcl_handle_hotplug(struct work_struct *work)
 	int ret = 0, cpu = 0;
 	union device_request curr_req;
 
-	trace_bcl_sw_mitigation_event("start hotplug mitigation");
+//	trace_bcl_sw_mitigation_event("start hotplug mitigation");
 	mutex_lock(&bcl_hotplug_mutex);
 
 	if  (bcl_soc_state == BCL_LOW_THRESHOLD
@@ -231,7 +231,7 @@ static void bcl_handle_hotplug(struct work_struct *work)
 		if (bcl_hotplug_request & BIT(cpu))
 			cpumask_set_cpu(cpu, &curr_req.offline_mask);
 	}
-	trace_bcl_sw_mitigation("Start hotplug CPU", bcl_hotplug_request);
+//	trace_bcl_sw_mitigation("Start hotplug CPU", bcl_hotplug_request);
 	ret = devmgr_client_request_mitigation(
 		gbcl->hotplug_handle,
 		HOTPLUG_MITIGATION_REQ,
@@ -243,7 +243,7 @@ static void bcl_handle_hotplug(struct work_struct *work)
 
 handle_hotplug_exit:
 	mutex_unlock(&bcl_hotplug_mutex);
-	trace_bcl_sw_mitigation_event("stop hotplug mitigation");
+//	trace_bcl_sw_mitigation_event("stop hotplug mitigation");
 	return;
 }
 
@@ -252,7 +252,7 @@ static void update_cpu_freq(void)
 	int cpu, ret = 0;
 	union device_request cpufreq_req;
 
-	trace_bcl_sw_mitigation_event("Start Frequency Mitigate");
+//	trace_bcl_sw_mitigation_event("Start Frequency Mitigate");
 	mutex_lock(&bcl_cpufreq_mutex);
 	cpufreq_req.freq.max_freq = UINT_MAX;
 	cpufreq_req.freq.min_freq = CPUFREQ_MIN_NO_MITIGATION;
@@ -270,7 +270,7 @@ static void update_cpu_freq(void)
 			continue;
 		pr_debug("Requesting Max freq:%u for CPU%d\n",
 			cpufreq_req.freq.max_freq, cpu);
-		trace_bcl_sw_mitigation("Frequency Mitigate CPU", cpu);
+//		trace_bcl_sw_mitigation("Frequency Mitigate CPU", cpu);
 		ret = devmgr_client_request_mitigation(
 			gbcl->cpufreq_handle[cpu],
 			CPUFREQ_MITIGATION_REQ, &cpufreq_req);
@@ -279,7 +279,7 @@ static void update_cpu_freq(void)
 				cpu, ret);
 	}
 	mutex_unlock(&bcl_cpufreq_mutex);
-	trace_bcl_sw_mitigation_event("End Frequency Mitigation");
+//	trace_bcl_sw_mitigation_event("End Frequency Mitigation");
 }
 
 static void power_supply_callback(struct power_supply *psy)
@@ -302,16 +302,16 @@ static void power_supply_callback(struct power_supply *psy)
 		battery_percentage = ret.intval;
 		battery_soc_val = battery_percentage;
 		pr_debug("Battery SOC reported:%d", battery_soc_val);
-		trace_bcl_sw_mitigation("SoC reported", battery_soc_val);
+//		trace_bcl_sw_mitigation("SoC reported", battery_soc_val);
 		prev_soc_state = bcl_soc_state;
 		bcl_soc_state = (battery_soc_val <= soc_low_threshold) ?
 					BCL_LOW_THRESHOLD : BCL_HIGH_THRESHOLD;
 		if (bcl_soc_state == prev_soc_state)
 			return;
-		trace_bcl_sw_mitigation_event(
-			(bcl_soc_state == BCL_LOW_THRESHOLD)
-			? "trigger SoC mitigation"
-			: "clear SoC mitigation");
+//		trace_bcl_sw_mitigation_event(
+//			(bcl_soc_state == BCL_LOW_THRESHOLD)
+//			? "trigger SoC mitigation"
+//			: "clear SoC mitigation");
 		if (bcl_hotplug_enabled)
 			queue_work(gbcl->bcl_hotplug_wq, &bcl_hotplug_work);
 		update_cpu_freq();
@@ -340,7 +340,6 @@ static int bcl_get_battery_voltage(int *vbatt_mv)
 	*vbatt_mv = ret.intval / 1000;
 	return 0;
 }
-
 
 static int bcl_get_resistance(int *rbatt_mohm)
 {
@@ -425,7 +424,7 @@ static void bcl_iavail_work(struct work_struct *work)
 		bcl_calculate_iavail_trigger();
 		/* restart the delay work for caculating imax */
 		queue_delayed_work(system_power_efficient_wq,
-                        &bcl->bcl_iavail_work,
+			&bcl->bcl_iavail_work,
 			msecs_to_jiffies(bcl->bcl_poll_interval_msec));
 	}
 }
@@ -459,9 +458,9 @@ int bcl_voltage_notify(bool is_high_thresh)
 		return -EINVAL;
 	}
 
-	trace_bcl_sw_mitigation_event((is_high_thresh)
-		? "vbat High trip notify"
-		: "vbat Low trip notify");
+//	trace_bcl_sw_mitigation_event((is_high_thresh)
+//		? "vbat High trip notify"
+//		: "vbat Low trip notify");
 	bcl_vph_notify((is_high_thresh) ? BCL_HIGH_THRESHOLD
 			: BCL_LOW_THRESHOLD);
 	return ret;
@@ -481,9 +480,9 @@ int bcl_current_notify(bool is_high_thresh)
 		return -EINVAL;
 	}
 
-	trace_bcl_sw_mitigation_event((is_high_thresh)
-		? "ibat High trip notify"
-		: "ibat Low trip notify");
+//	trace_bcl_sw_mitigation_event((is_high_thresh)
+//		? "ibat High trip notify"
+//		: "ibat Low trip notify");
 	bcl_ibat_notify((is_high_thresh) ? BCL_HIGH_THRESHOLD
 			: BCL_LOW_THRESHOLD);
 	return ret;
@@ -804,7 +803,7 @@ static void bcl_mode_set(enum bcl_device_mode mode)
 	case BCL_IAVAIL_MONITOR_TYPE:
 		if (mode == BCL_DEVICE_ENABLED)
 			queue_delayed_work(system_power_efficient_wq,
-					&gbcl->bcl_iavail_work, 0);
+				&gbcl->bcl_iavail_work, 0);
 		else
 			cancel_delayed_work_sync(&(gbcl->bcl_iavail_work));
 		break;

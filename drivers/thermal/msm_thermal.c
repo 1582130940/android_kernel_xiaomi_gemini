@@ -1017,13 +1017,13 @@ static void update_cpu_freq(int cpu)
 			cpumask_or(&throttling_mask, &mask, &throttling_mask);
 			set_cpu_throttled(&mask, true);
 		}
-		trace_thermal_pre_frequency_mit(cpu,
-			cpus[cpu].limited_max_freq,
-			cpus[cpu].limited_min_freq);
+//		trace_thermal_pre_frequency_mit(cpu,
+//			cpus[cpu].limited_max_freq,
+//			cpus[cpu].limited_min_freq);
 		ret = cpufreq_update_policy(cpu);
-		trace_thermal_post_frequency_mit(cpu,
-			cpufreq_quick_get_max(cpu),
-			cpus[cpu].limited_min_freq);
+//		trace_thermal_post_frequency_mit(cpu,
+//			cpufreq_quick_get_max(cpu),
+//			cpus[cpu].limited_min_freq);
 		if (ret)
 			pr_err("Unable to update policy for cpu:%d. err:%d\n",
 				cpu, ret);
@@ -2031,10 +2031,10 @@ static ssize_t sensor_info_show(
 
 static struct vdd_rstr_enable vdd_rstr_en = {
 	.ko_attr.attr.name = __stringify(enabled),
-	.ko_attr.attr.mode = 0644,
+	.ko_attr.attr.mode = 0444,
 	.ko_attr.show = vdd_rstr_en_show,
 	.ko_attr.store = vdd_rstr_en_store,
-	.enabled = 1,
+	.enabled = 0,
 };
 
 static struct attribute *vdd_rstr_en_attribs[] = {
@@ -2896,13 +2896,13 @@ static void __ref do_core_control(long temp)
 			lock_device_hotplug();
 			if (cpu_online(i)) {
 				cpu_dev = get_cpu_device(i);
-				trace_thermal_pre_core_offline(i);
+//				trace_thermal_pre_core_offline(i);
 				ret = device_offline(cpu_dev);
 				if (ret < 0)
 					pr_err("Error %d offline core %d\n",
 					       ret, i);
-				trace_thermal_post_core_offline(i,
-					cpumask_test_cpu(i, cpu_online_mask));
+//				trace_thermal_post_core_offline(i,
+//					cpumask_test_cpu(i, cpu_online_mask));
 			}
 			unlock_device_hotplug();
 			cpus_offlined |= BIT(i);
@@ -2933,13 +2933,13 @@ static void __ref do_core_control(long temp)
 				continue;
 			}
 			cpu_dev = get_cpu_device(i);
-			trace_thermal_pre_core_online(i);
+//			trace_thermal_pre_core_online(i);
 			ret = device_online(cpu_dev);
 			if (ret)
 				pr_err("Error %d online core %d\n",
 						ret, i);
-			trace_thermal_post_core_online(i,
-				cpumask_test_cpu(i, cpu_online_mask));
+//			trace_thermal_post_core_online(i,
+//				cpumask_test_cpu(i, cpu_online_mask));
 			unlock_device_hotplug();
 			break;
 		}
@@ -2969,7 +2969,7 @@ static int __ref update_offline_cores(int val)
 				continue;
 			}
 			cpu_dev = get_cpu_device(cpu);
-			trace_thermal_pre_core_offline(cpu);
+//			trace_thermal_pre_core_offline(cpu);
 			ret = device_offline(cpu_dev);
 			if (ret < 0) {
 				cpus_offlined &= ~BIT(cpu);
@@ -2980,8 +2980,8 @@ static int __ref update_offline_cores(int val)
 			} else {
 				pr_debug("Offlined CPU%d\n", cpu);
 			}
-			trace_thermal_post_core_offline(cpu,
-				cpumask_test_cpu(cpu, cpu_online_mask));
+//			trace_thermal_post_core_offline(cpu,
+//				cpumask_test_cpu(cpu, cpu_online_mask));
 			unlock_device_hotplug();
 		} else if (online_core && (previous_cpus_offlined & BIT(cpu))) {
 			lock_device_hotplug();
@@ -2996,7 +2996,7 @@ static int __ref update_offline_cores(int val)
 				continue;
 			}
 			cpu_dev = get_cpu_device(cpu);
-			trace_thermal_pre_core_online(cpu);
+//			trace_thermal_pre_core_online(cpu);
 			ret = device_online(cpu_dev);
 			if (ret && ret == notifier_to_errno(NOTIFY_BAD)) {
 				pr_debug("Onlining CPU%d is vetoed\n", cpu);
@@ -3008,8 +3008,8 @@ static int __ref update_offline_cores(int val)
 					cpu, ret);
 			} else {
 				pr_debug("Onlined CPU%d\n", cpu);
-				trace_thermal_post_core_online(cpu,
-					cpumask_test_cpu(cpu, cpu_online_mask));
+//				trace_thermal_post_core_online(cpu,
+//					cpumask_test_cpu(cpu, cpu_online_mask));
 			}
 			unlock_device_hotplug();
 		}

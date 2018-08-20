@@ -1314,7 +1314,6 @@ zonehist_store(struct device *dev, struct device_attribute *attr,
 	return count;
 }
 
-
 static struct device_attribute tsens_mtc_dev_attr[] = {
 	__ATTR(zonemask, 0644, zonemask_show, zonemask_store),
 	__ATTR(zonelog, 0644, zonelog_show, zonelog_store),
@@ -1509,7 +1508,7 @@ static int msm_tsens_get_temp(int sensor_client_id, unsigned long *temp)
 	tmdev->sensor_dbg_info[sensor_hw_num].idx = idx;
 	spin_unlock_irqrestore(&tmdev->tsens_debug_lock, flags);
 
-	trace_tsens_read(*temp, sensor_client_id);
+//	trace_tsens_read(*temp, sensor_client_id);
 
 	return 0;
 }
@@ -2680,7 +2679,7 @@ static irqreturn_t tsens_irq_thread(int irq, void *data)
 				tsens_tz_code_to_degc((status &
 				TSENS_SN_STATUS_TEMP_MASK),
 				tm->sensor[i].sensor_sw_id, tm));
-			if (upper_thr)
+/*			if (upper_thr)
 				trace_tsens_threshold_hit(
 					tsens_tz_code_to_degc((threshold &
 					TSENS_UPPER_THRESHOLD_MASK) >>
@@ -2692,7 +2691,7 @@ static irqreturn_t tsens_irq_thread(int irq, void *data)
 					tsens_tz_code_to_degc((threshold &
 					TSENS_LOWER_THRESHOLD_MASK),
 					sensor_sw_id, tm),
-					tm->sensor[i].sensor_hw_num);
+					tm->sensor[i].sensor_hw_num);*/
 		}
 	}
 	/* debug */
