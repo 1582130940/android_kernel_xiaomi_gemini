@@ -8,8 +8,6 @@
  * as published by the Free Software Foundation.
  */
 
-#define DEBUG
-
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/kernel.h>
@@ -47,7 +45,6 @@ MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Fingerprint Cards AB <tech@fingerprints.com>");
 MODULE_DESCRIPTION("FPC1020 touch sensor driver.");
 
-
 /* -------------------------------------------------------------------- */
 /* fpc1020 sensor commands and registers				*/
 /* -------------------------------------------------------------------- */
@@ -55,13 +52,10 @@ typedef enum {
 	FPC_1020_ERROR_REG_BIT_FIFO_UNDERFLOW = 1 << 0
 } fpc1020_error_reg_t;
 
-
-
 /* -------------------------------------------------------------------- */
 /* global variables							*/
 /* -------------------------------------------------------------------- */
 static int fpc1020_device_count;
-
 
 /* -------------------------------------------------------------------- */
 /* fpc1020 data types							*/
@@ -186,7 +180,6 @@ static int fpc1020_worker_function(void *_fpc1020);
 
 static int fpc1020_start_input(fpc1020_data_t *fpc1020);
 
-
 /* -------------------------------------------------------------------- */
 /* External interface							*/
 /* -------------------------------------------------------------------- */
@@ -229,7 +222,6 @@ static const struct file_operations fpc1020_fops = {
 	.release        = fpc1020_release,
 	.poll           = fpc1020_poll,
 };
-
 
 /* -------------------------------------------------------------------- */
 /* devfs								*/
@@ -289,7 +281,6 @@ static FPC1020_DEV_ATTR(diag, spi_data ,	DEVFS_DIAG_MODE_RW);
 static FPC1020_DEV_ATTR(diag, last_capture_time, DEVFS_DIAG_MODE_RO);
 static FPC1020_DEV_ATTR(diag, finger_present_status, DEVFS_DIAG_MODE_RO);
 
-
 static struct attribute *fpc1020_diag_attrs[] = {
 	&fpc1020_attr_chip_id.attr.attr,
 	&fpc1020_attr_selftest.attr.attr,
@@ -305,7 +296,6 @@ static const struct attribute_group fpc1020_diag_attr_group = {
 	.attrs = fpc1020_diag_attrs,
 	.name = "diag"
 };
-
 
 /* -------------------------------------------------------------------- */
 /* SPI debug interface, prototypes					*/
@@ -346,7 +336,6 @@ static int __init fpc1020_init(void)
 	return 0;
 }
 
-
 /* -------------------------------------------------------------------- */
 static void __exit fpc1020_exit(void)
 {
@@ -354,7 +343,6 @@ static void __exit fpc1020_exit(void)
 
 	spi_unregister_driver(&fpc1020_driver);
 }
-
 
 /* -------------------------------------------------------------------- */
 static int fpc1020_probe(struct spi_device *spi)
@@ -395,7 +383,6 @@ static int fpc1020_probe(struct spi_device *spi)
 	fpc1020->use_regulator_for_bezel = 0;
 	fpc1020->use_fpc2050 = 1;
 	fpc1020->under_glass = 0;
-
 
 	init_waitqueue_head(&fpc1020->wq_irq_return);
 
@@ -537,7 +524,6 @@ err:
 	return error;
 }
 
-
 /* -------------------------------------------------------------------- */
 static int fpc1020_remove(struct spi_device *spi)
 {
@@ -558,7 +544,6 @@ static int fpc1020_remove(struct spi_device *spi)
 	return 0;
 }
 
-
 /* -------------------------------------------------------------------- */
 static int fpc1020_suspend(struct device *dev)
 {
@@ -576,7 +561,6 @@ static int fpc1020_suspend(struct device *dev)
 	return 0;
 }
 
-
 /* -------------------------------------------------------------------- */
 static int fpc1020_resume(struct device *dev)
 {
@@ -586,7 +570,6 @@ static int fpc1020_resume(struct device *dev)
 
 	return 0;
 }
-
 
 /* -------------------------------------------------------------------- */
 static int fpc1020_open(struct inode *inode, struct file *file)
@@ -608,7 +591,6 @@ static int fpc1020_open(struct inode *inode, struct file *file)
 	return 0;
 }
 
-
 /* -------------------------------------------------------------------- */
 static ssize_t fpc1020_write(struct file *file, const char *buff,
 					size_t count, loff_t *ppos)
@@ -617,7 +599,6 @@ static ssize_t fpc1020_write(struct file *file, const char *buff,
 
 	return -ENOTTY;
 }
-
 
 /* -------------------------------------------------------------------- */
 static ssize_t fpc1020_read(struct file *file, char *buff,
@@ -697,7 +678,6 @@ out:
 	return error;
 }
 
-
 /* -------------------------------------------------------------------- */
 static int fpc1020_release(struct inode *inode, struct file *file)
 {
@@ -716,7 +696,6 @@ static int fpc1020_release(struct inode *inode, struct file *file)
 
 	return status;
 }
-
 
 /* -------------------------------------------------------------------- */
 static unsigned int fpc1020_poll(struct file *file, poll_table *wait)
@@ -779,7 +758,6 @@ static unsigned int fpc1020_poll(struct file *file, poll_table *wait)
 
 	return ret;
 }
-
 
 /* -------------------------------------------------------------------- */
 static int fpc1020_cleanup(fpc1020_data_t *fpc1020, struct spi_device *spidev)
@@ -906,13 +884,10 @@ static int fpc1020_param_init(fpc1020_data_t *fpc1020,
 	return 0;
 }
 
-
 /* ------------------------------------------------------------ */
 static int fpc1020_supply_init(fpc1020_data_t *fpc1020)
 {
 	int error = 0;
-
-
 
 	if (fpc1020->use_regulator_for_bezel) {
 		error = fpc1020_regulator_configure(fpc1020);
@@ -933,7 +908,6 @@ static int fpc1020_supply_init(fpc1020_data_t *fpc1020)
 err:
 	return error;
 }
-
 
 /* -------------------------------------------------- */
 static int fpc1020_reset_init(fpc1020_data_t *fpc1020,
@@ -1079,7 +1053,6 @@ static int fpc1020_irq_init(fpc1020_data_t *fpc1020,
 	return error;
 }
 
-
 /* -------------------------------------------------------------------- */
 static int fpc1020_spi_setup(fpc1020_data_t *fpc1020,
 					struct fpc1020_platform_data *pdata)
@@ -1130,7 +1103,6 @@ out_err:
 	return error;
 }
 
-
 /* -------------------------------------------------------------------- */
 static int fpc1020_worker_init(fpc1020_data_t *fpc1020)
 {
@@ -1155,7 +1127,6 @@ static int fpc1020_worker_init(fpc1020_data_t *fpc1020)
 	return error;
 }
 
-
 /* -------------------------------------------------------------------- */
 static int fpc1020_worker_destroy(fpc1020_data_t *fpc1020)
 {
@@ -1173,7 +1144,6 @@ static int fpc1020_worker_destroy(fpc1020_data_t *fpc1020)
 
 	return error;
 }
-
 
 /* -------------------------------------------------------------------- */
 #ifdef CONFIG_OF
@@ -1262,7 +1232,6 @@ static int fpc1020_get_of_pdata(struct device *dev,
 }
 #endif
 
-
 /* -------------------------------------------------------------------- */
 static int fpc1020_create_class(fpc1020_data_t *fpc1020)
 {
@@ -1279,7 +1248,6 @@ static int fpc1020_create_class(fpc1020_data_t *fpc1020)
 
 	return error;
 }
-
 
 /* -------------------------------------------------------------------- */
 static int fpc1020_create_device(fpc1020_data_t *fpc1020)
@@ -1324,7 +1292,6 @@ out:
 	return error;
 }
 
-
 /* -------------------------------------------------------------------- */
 static int fpc1020_manage_sysfs(fpc1020_data_t *fpc1020,
 				struct spi_device *spi, bool create)
@@ -1365,7 +1332,6 @@ static int fpc1020_manage_sysfs(fpc1020_data_t *fpc1020,
 	return error;
 }
 
-
 /* -------------------------------------------------------------------- */
 irqreturn_t fpc1020_interrupt(int irq, void *_fpc1020)
 {
@@ -1379,7 +1345,6 @@ irqreturn_t fpc1020_interrupt(int irq, void *_fpc1020)
 	}
 	return IRQ_NONE;
 }
-
 
 /* -------------------------------------------------------------------- */
 static ssize_t fpc1020_show_attr_setup(struct device *dev,
@@ -1430,7 +1395,6 @@ static ssize_t fpc1020_show_attr_setup(struct device *dev,
 
 	return -ENOENT;
 }
-
 
 /* -------------------------------------------------------------------- */
 static ssize_t fpc1020_store_attr_setup(struct device *dev,
@@ -1521,7 +1485,6 @@ static ssize_t fpc1020_store_attr_setup(struct device *dev,
 			} else
 				return -EINVAL;
 
-
 		} else if (fpc_attr->offset ==
 			offsetof(fpc1020_setup_t, capture_col_groups)) {
 
@@ -1539,7 +1502,6 @@ static ssize_t fpc1020_store_attr_setup(struct device *dev,
 	}
 	return error;
 }
-
 
 /* -------------------------------------------------------------------- */
 static ssize_t fpc1020_show_attr_diag(struct device *dev,
@@ -1616,7 +1578,6 @@ static ssize_t fpc1020_show_attr_diag(struct device *dev,
 	return error;
 }
 
-
 /* -------------------------------------------------------------------- */
 static ssize_t fpc1020_store_attr_diag(struct device *dev,
 					struct device_attribute *attr,
@@ -1655,7 +1616,6 @@ static ssize_t fpc1020_store_attr_diag(struct device *dev,
 
 	return (error < 0) ? error : strnlen(buf, count);
 }
-
 
 /* -------------------------------------------------------------------- */
 static u8 fpc1020_selftest_short(fpc1020_data_t *fpc1020)
@@ -1763,7 +1723,6 @@ out:
 	return fpc1020->diag.selftest;
 };
 
-
 /* -------------------------------------------------------------------- */
 static int fpc1020_start_capture(fpc1020_data_t *fpc1020)
 {
@@ -1804,7 +1763,6 @@ static int fpc1020_start_capture(fpc1020_data_t *fpc1020)
 	return error;
 }
 
-
 /* -------------------------------------------------------------------- */
 static int fpc1020_worker_goto_idle(fpc1020_data_t *fpc1020)
 {
@@ -1837,7 +1795,6 @@ static int fpc1020_worker_goto_idle(fpc1020_data_t *fpc1020)
 	return 0;
 }
 
-
 /* -------------------------------------------------------------------- */
 static int fpc1020_new_job(fpc1020_data_t *fpc1020, int new_job)
 {
@@ -1859,7 +1816,6 @@ static int fpc1020_new_job(fpc1020_data_t *fpc1020, int new_job)
 
 	return 0;
 }
-
 
 /* -------------------------------------------------------------------- */
 static int fpc1020_worker_function(void *_fpc1020)
@@ -1901,7 +1857,6 @@ static int fpc1020_worker_function(void *_fpc1020)
 	return 0;
 }
 
-
 /* -------------------------------------------------------------------- */
 /* SPI debug interface, implementation					*/
 /* -------------------------------------------------------------------- */
@@ -1926,7 +1881,6 @@ static int fpc1020_spi_debug_select(fpc1020_data_t *fpc1020, fpc1020_reg_t reg)
 	}
 }
 
-
 /* -------------------------------------------------------------------- */
 static int fpc1020_spi_debug_value_write(fpc1020_data_t *fpc1020, u64 data)
 {
@@ -1944,7 +1898,6 @@ static int fpc1020_spi_debug_value_write(fpc1020_data_t *fpc1020, u64 data)
 
 	return error;
 }
-
 
 /* -------------------------------------------------------------------- */
 static int fpc1020_spi_debug_buffer_write(fpc1020_data_t *fpc1020,
@@ -1974,7 +1927,6 @@ static int fpc1020_spi_debug_buffer_write(fpc1020_data_t *fpc1020,
 	return error;
 }
 
-
 /* -------------------------------------------------------------------- */
 static int fpc1020_spi_debug_value_read(fpc1020_data_t *fpc1020, u64 *data)
 {
@@ -1995,7 +1947,6 @@ static int fpc1020_spi_debug_value_read(fpc1020_data_t *fpc1020, u64 *data)
 	return error;
 }
 
-
 /* -------------------------------------------------------------------- */
 static int fpc1020_spi_debug_buffer_read(fpc1020_data_t *fpc1020,
 						u8 *data, size_t max_count)
@@ -2015,7 +1966,6 @@ static int fpc1020_spi_debug_buffer_read(fpc1020_data_t *fpc1020,
 
 	return error;
 }
-
 
 /* -------------------------------------------------------------------- */
 static void fpc1020_spi_debug_buffer_to_hex_string(char *string,
@@ -2045,7 +1995,6 @@ static void fpc1020_spi_debug_buffer_to_hex_string(char *string,
 	string[pos] = '\0';
 }
 
-
 /* -------------------------------------------------------------------- */
 static u8 fpc1020_char_to_u8(char in_char)
 {
@@ -2060,7 +2009,6 @@ static u8 fpc1020_char_to_u8(char in_char)
 
 	return 0;
 }
-
 
 /* -------------------------------------------------------------------- */
 static int fpc1020_spi_debug_hex_string_to_buffer(u8 *buffer,
@@ -2107,14 +2055,10 @@ static int fpc1020_spi_debug_hex_string_to_buffer(u8 *buffer,
 	return bytes;
 }
 
-
 /* -------------------------------------------------------------------- */
 static int fpc1020_start_input(fpc1020_data_t *fpc1020)
 {
 	return fpc1020_new_job(fpc1020, FPC1020_WORKER_INPUT_MODE);
 }
 
-
 /* -------------------------------------------------------------------- */
-
-

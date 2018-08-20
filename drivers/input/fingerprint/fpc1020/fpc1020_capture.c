@@ -8,8 +8,6 @@
  * as published by the Free Software Foundation.
  */
 
-#define DEBUG
-
 #include <linux/input.h>
 #include <linux/delay.h>
 #include <linux/time.h>
@@ -22,9 +20,7 @@
 #include "fpc1020_capture.h"
 #endif
 
-
 static size_t fpc1020_calc_image_size(fpc1020_data_t *fpc1020);
-
 
 int fpc1020_init_capture(fpc1020_data_t *fpc1020)
 {
@@ -38,12 +34,10 @@ int fpc1020_init_capture(fpc1020_data_t *fpc1020)
 	return 0;
 }
 
-
 int fpc1020_write_capture_setup(fpc1020_data_t *fpc1020)
 {
 	return fpc1020_write_sensor_setup(fpc1020);
 }
-
 
 int fpc1020_write_test_setup(fpc1020_data_t *fpc1020, u16 pattern)
 {
@@ -74,7 +68,6 @@ int fpc1020_write_test_setup(fpc1020_data_t *fpc1020, u16 pattern)
 out:
 	return error;
 }
-
 
 int fpc1020_write_cb_test_setup_102x(fpc1020_data_t *fpc1020, bool invert)
 {
@@ -131,7 +124,6 @@ int fpc1020_write_cb_test_setup_102x(fpc1020_data_t *fpc1020, bool invert)
 out:
 	return error;
 }
-
 
 int fpc1020_write_cb_test_setup_1155(fpc1020_data_t *fpc1020, bool invert)
 {
@@ -194,7 +186,6 @@ out:
 	return error;
 }
 
-
 int fpc1020_write_cb_test_setup_1022(fpc1020_data_t *fpc1020, bool invert)
 {
 	int error = 0;
@@ -237,12 +228,10 @@ out:
 	return error;
 }
 
-
 int fpc1020_write_cb_test_setup_1145(fpc1020_data_t *fpc1020, bool invert)
 {
 	return fpc1020_write_cb_test_setup_1155(fpc1020, invert);
 }
-
 
 int fpc1020_write_cb_test_setup(fpc1020_data_t *fpc1020, bool invert)
 {
@@ -268,7 +257,6 @@ int fpc1020_write_cb_test_setup(fpc1020_data_t *fpc1020, bool invert)
 	return error;
 }
 
-
 bool fpc1020_capture_check_ready(fpc1020_data_t *fpc1020)
 {
 	fpc1020_capture_state_t state = fpc1020->capture.state;
@@ -277,7 +265,6 @@ bool fpc1020_capture_check_ready(fpc1020_data_t *fpc1020)
 		(state == FPC1020_CAPTURE_STATE_COMPLETED) ||
 		(state == FPC1020_CAPTURE_STATE_FAILED);
 }
-
 
 int fpc1020_capture_task(fpc1020_data_t *fpc1020)
 {
@@ -577,7 +564,6 @@ out_error:
 	return error;
 }
 
-
 int fpc1020_capture_wait_finger_down(fpc1020_data_t *fpc1020)
 {
 	int error;
@@ -733,7 +719,6 @@ int fpc1020_capture_finger_detect_settings(fpc1020_data_t *fpc1020)
 	return fpc1020_capture_settings(fpc1020, FPC1020_MAX_ADC_SETTINGS - 1);
 }
 
-
 static size_t fpc1020_calc_image_size(fpc1020_data_t *fpc1020)
 {
 	int image_byte_size = fpc1020->setup.capture_row_count *
@@ -757,7 +742,6 @@ static size_t fpc1020_calc_image_size(fpc1020_data_t *fpc1020)
 	return image_byte_size;
 }
 
-
 int fpc1020_capture_set_crop(fpc1020_data_t *fpc1020,
 		int first_column,
 		int num_columns,
@@ -778,7 +762,6 @@ int fpc1020_capture_set_crop(fpc1020_data_t *fpc1020,
 	FPC1020_MK_REG_WRITE(reg, FPC102X_REG_IMG_CAPT_SIZE, &temp_u32);
 	return fpc1020_reg_access(fpc1020, &reg);
 }
-
 
 int fpc1020_capture_buffer(fpc1020_data_t *fpc1020,
 		u8 *data,
@@ -812,7 +795,6 @@ out_error:
 	return error;
 }
 
-
 extern int fpc1020_capture_deferred_task(fpc1020_data_t *fpc1020)
 {
 	int error = 0;
@@ -827,6 +809,3 @@ extern int fpc1020_capture_deferred_task(fpc1020_data_t *fpc1020)
 
 	return error;
 }
-
-
-

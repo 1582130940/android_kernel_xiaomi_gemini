@@ -28,7 +28,6 @@ SW-660: Update "finger present" after capture.
 * Big endian platforms.
 * Driver init not using Devicetree (i.e. pdata init)
 
-
 *******************************************************************************
 Version: SW8
 Date:
@@ -61,7 +60,6 @@ SW-573: Fix false finger detects with CAC.
 * Big endian platforms.
 * Driver init not using Devicetree (i.e. pdata init)
 
-
 *******************************************************************************
 Version: SW7
 Date:
@@ -92,7 +90,6 @@ SW-226: Settings for finger detect in capture mode.
 --- Not tested ---
 * Big endian platforms.
 * Driver init not using Devicetree (i.e. pdata init)
-
 
 *******************************************************************************
 Version: SW6
@@ -126,7 +123,6 @@ SW-306: Internal boost, usage recommendations changed.
 * Big endian platforms.
 * Driver init not using Devicetree (i.e. pdata init)
 
-
 *******************************************************************************
 Version: SW5
 Date: 2014-05-26
@@ -151,7 +147,6 @@ SW270, bug fix regarding finger-up.
 --- Not tested ---
 * Big endian platforms.
 * Driver init not using Devicetree (i.e. pdata init)
-
 
 *******************************************************************************
 Version: SW5
@@ -178,7 +173,6 @@ SW237, recommended settings update (PA5).
 --- Not tested ---
 * Big endian platforms.
 * Driver init not using Devicetree (i.e. pdata init)
-
 
 *******************************************************************************
 Version: SW4
@@ -542,5 +536,3 @@ First version. Tested on QC8074-Dragonboard (kernel 3.4.0).
 --- Not tested ---
 * Big endian platforms.
 * Driver init not using Devicetree (i.e. pdata init)
-
-

@@ -211,7 +211,6 @@ static ssize_t irq_get(struct device *device,
 	return scnprintf(buffer, PAGE_SIZE, "%i\n", irq);
 }
 
-
 /**
  * writing to the irq node will just drop a printk message
  * and return success, used for latency measurement.
@@ -236,7 +235,6 @@ static ssize_t enable_wakeup_show(struct device *dev,
 	return scnprintf(buf, PAGE_SIZE, "%c\n", c);
 }
 
-
 static ssize_t enable_wakeup_store(struct device *dev,
 	struct device_attribute *attr, const char *buf, size_t count)
 {
@@ -255,7 +253,6 @@ static ssize_t enable_wakeup_store(struct device *dev,
 }
 static DEVICE_ATTR(enable_wakeup, S_IWUSR | S_IRUSR, enable_wakeup_show,
 		   enable_wakeup_store);
-
 
 static struct attribute *attributes[] = {
 	&dev_attr_irq.attr,
@@ -394,7 +391,7 @@ static int fpc1020_tee_probe(struct platform_device *pdev)
 		goto exit;
 	}
 
-	fpc1020->wakeup_enabled = 0;
+	fpc1020->wakeup_enabled = 1;
 
 	rc = fpc1020_request_named_gpio(fpc1020, "fpc,irq-gpio",
 			&fpc1020->irq_gpio);
@@ -466,7 +463,6 @@ static int fpc1020_tee_probe(struct platform_device *pdev)
 exit:
 	return rc;
 }
-
 
 static struct of_device_id fpc1020_of_match[] = {
 	{ .compatible = "fpc,fpc1020", },

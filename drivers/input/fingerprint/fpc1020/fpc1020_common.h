@@ -11,8 +11,6 @@
 #ifndef LINUX_SPI_FPC1020_COMMON_H
 #define LINUX_SPI_FPC1020_COMMON_H
 
-#define DEBUG
-
 #include <linux/cdev.h>
 #include <linux/gpio.h>
 #include <linux/delay.h>
@@ -224,7 +222,6 @@ typedef struct {
 	u8            *dataptr;
 } fpc1020_reg_access_t;
 
-
 /* -------------------------------------------------------------------- */
 /* function prototypes							*/
 /* -------------------------------------------------------------------- */
@@ -311,4 +308,3 @@ extern int fpc1020_set_finger_detect_threshold(fpc1020_data_t *fpc1020,
 #define FPC1020_FINGER_DETECT_ZONE_MASK		0x0FFFU
 
 #endif /* LINUX_SPI_FPC1020_COMMON_H */
-

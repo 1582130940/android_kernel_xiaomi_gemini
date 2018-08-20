@@ -8,8 +8,6 @@
  * as published by the Free Software Foundation.
  */
 
-#define DEBUG
-
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/kernel.h>
@@ -46,7 +44,7 @@ int fpc1020_regulator_configure(fpc1020_data_t *fpc1020)
 				SUPPLY_TX_MIN, SUPPLY_TX_MAX);
 		if (error) {
 			dev_err(&fpc1020->spi->dev,
-	q			"regulator set(tx) failed, error=%d\n", error);
+				"regulator set(tx) failed, error=%d\n", error);
 			goto supply_err;
 		}
 	}
@@ -57,7 +55,6 @@ supply_err:
 	fpc1020_regulator_release(fpc1020);
 	return error;
 }
-
 
 /* -------------------------------------------------------------------- */
 int fpc1020_regulator_release(fpc1020_data_t *fpc1020)
@@ -71,7 +68,6 @@ int fpc1020_regulator_release(fpc1020_data_t *fpc1020)
 
 	return 0;
 }
-
 
 /* -------------------------------------------------------------------- */
 int fpc1020_regulator_set(fpc1020_data_t *fpc1020, bool enable)
@@ -120,6 +116,3 @@ out_err:
 	fpc1020_regulator_release(fpc1020);
 	return error;
 }
-
-
-

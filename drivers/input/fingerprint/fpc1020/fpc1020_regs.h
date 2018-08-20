@@ -118,5 +118,3 @@ typedef enum {
 	((reg) >= FPC1150_REG_OFFSET) ? ((reg) - FPC1150_REG_OFFSET) : (reg))
 
 #endif /* __FPC1020_REGS_H */
-
-
