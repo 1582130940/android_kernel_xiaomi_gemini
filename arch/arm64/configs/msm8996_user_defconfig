@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 3.18.117 Kernel Configuration
+# Linux/arm64 3.18.119 Kernel Configuration
 #
 CONFIG_ARM64=y
 CONFIG_64BIT=y
@@ -43,7 +43,7 @@ CONFIG_BUILDTIME_EXTABLE_SORT=y
 CONFIG_INIT_ENV_ARG_LIMIT=32
 CONFIG_CROSS_COMPILE=""
 # CONFIG_COMPILE_TEST is not set
-CONFIG_LOCALVERSION="-Xtreme™-Project-MIUI-v0.0.8"
+CONFIG_LOCALVERSION="-Xtreme™-Project-v0.0.8-β2"
 CONFIG_LOCALVERSION_AUTO=y
 CONFIG_DEFAULT_HOSTNAME="(none)"
 CONFIG_SWAP=y
@@ -3818,7 +3818,6 @@ CONFIG_IPA=y
 # CONFIG_IPA3 is not set
 # CONFIG_GSI is not set
 CONFIG_RMNET_IPA=y
-# CONFIG_SSM is not set
 CONFIG_MSM_MHI=y
 CONFIG_MSM_MHI_UCI=y
 # CONFIG_MSM_MHI_DEBUG is not set

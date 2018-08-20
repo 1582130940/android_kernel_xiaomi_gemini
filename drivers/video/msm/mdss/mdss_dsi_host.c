@@ -1,4 +1,4 @@
-/* Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2012-2018, The Linux Foundation. All rights reserved.
  * Copyright (C) 2018 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -55,7 +55,6 @@ struct mdss_hw mdss_dsi1_hw = {
 	.ptr = NULL,
 	.irq_handler = mdss_dsi_isr,
 };
-
 
 #define DSI_EVENT_Q_MAX	4
 
@@ -402,7 +401,6 @@ void mdss_dsi_host_init(struct mdss_panel_data *pdata)
 	if (pinfo->data_lane0)
 		dsi_ctrl |= BIT(4);
 
-
 	data = 0;
 	if (pinfo->te_sel)
 		data |= BIT(31);
@@ -606,7 +604,6 @@ static void mdss_dsi_cfg_lane_ctrl(struct mdss_dsi_ctrl_pdata *ctrl,
 		data &= ~bits;
 	MIPI_OUTP(ctrl->ctrl_base + 0x0ac, data);
 }
-
 
 static inline bool mdss_dsi_poll_clk_lane(struct mdss_dsi_ctrl_pdata *ctrl)
 {
@@ -1145,7 +1142,6 @@ static int mdss_dsi_read_status(struct mdss_dsi_ctrl_pdata *ctrl)
 
 	return rc;
 }
-
 
 /**
  * mdss_dsi_reg_status_check() - Check dsi panel status through reg read
@@ -1895,7 +1891,6 @@ int mdss_dsi_cmds_rx(struct mdss_dsi_ctrl_pdata *ctrl,
 	char cmd;
 	struct mdss_dsi_ctrl_pdata *mctrl = NULL;
 
-
 	if (ctrl->panel_data.panel_info.panel_ack_disabled) {
 		pr_err("%s: ACK from Client not supported\n", __func__);
 		return rlen;
@@ -1945,7 +1940,6 @@ do_send:
 			pkt_size = data_byte;
 		rx_byte = data_byte + 6; /* 4 header + 2 crc */
 	}
-
 
 	tp = &ctrl->tx_buf;
 	rp = &ctrl->rx_buf;
@@ -2200,7 +2194,7 @@ static int mdss_dsi_cmd_dma_tx(struct mdss_dsi_ctrl_pdata *ctrl,
 			/* clear CMD DMA and BTA_DONE isr only */
 			reg_val |= (DSI_INTR_CMD_DMA_DONE | DSI_INTR_BTA_DONE);
 			MIPI_OUTP(ctrl->ctrl_base + 0x0110, reg_val);
-			mdss_dsi_disable_irq_nosync(ctrl, DSI_CMD_TERM);
+			mdss_dsi_disable_irq(ctrl, DSI_CMD_TERM);
 			complete(&ctrl->dma_comp);
 
 			pr_warn("%s: dma tx done but irq not triggered\n",
@@ -2366,7 +2360,6 @@ static int mdss_dsi_bus_bandwidth_vote(struct dsi_shared_data *sdata, bool on)
 
 	return rc;
 }
-
 
 int mdss_dsi_en_wait4dynamic_done(struct mdss_dsi_ctrl_pdata *ctrl)
 {
