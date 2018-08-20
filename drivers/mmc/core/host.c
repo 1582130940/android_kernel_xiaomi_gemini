@@ -193,7 +193,7 @@ bool mmc_host_may_gate_card(struct mmc_card *card)
 	 * that is the case or not.
 	 */
 	if (mmc_card_sdio(card) && card->cccr.async_intr_sup)
-			return true;
+		return true;
 
 	/*
 	 * Don't gate SDIO cards! These need to be clocked at all times

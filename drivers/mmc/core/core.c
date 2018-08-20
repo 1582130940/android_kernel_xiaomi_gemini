@@ -528,7 +528,6 @@ static int mmc_devfreq_set_target(struct device *dev,
 		pr_debug("%s: clock change to %lu finished successfully (%s)\n",
 			mmc_hostname(host), *freq, current->comm);
 
-
 	mmc_host_clk_release(host);
 	mmc_release_host(host);
 out:
@@ -558,7 +557,6 @@ void mmc_deferred_scaling(struct mmc_host *host)
 		spin_unlock_bh(&host->clk_scaling.lock);
 		return;
 	}
-
 
 	atomic_inc(&host->clk_scaling.devfreq_abort);
 	target_freq = host->clk_scaling.target_freq;
@@ -941,7 +939,7 @@ void mmc_request_done(struct mmc_host *host, struct mmc_request *mrq)
 			pr_debug("%s:     %d bytes transferred: %d\n",
 				mmc_hostname(host),
 				mrq->data->bytes_xfered, mrq->data->error);
-			trace_mmc_blk_rw_end(cmd->opcode, cmd->arg, mrq->data);
+//			trace_mmc_blk_rw_end(cmd->opcode, cmd->arg, mrq->data);
 		}
 
 		if (mrq->stop) {
@@ -2116,7 +2114,6 @@ void mmc_get_card(struct mmc_card *card)
 }
 EXPORT_SYMBOL(mmc_get_card);
 
-
 /*
  * This is a helper function, which releases the host and drops the runtime
  * pm reference for the card device.
@@ -2154,7 +2151,7 @@ void mmc_set_ios(struct mmc_host *host)
 				mmc_hostname(host), ios->old_rate / 1000,
 				ios->clock / 1000, jiffies_to_msecs(
 					(long)jiffies - (long)ios->clk_ts));
-			trace_mmc_clk(trace_info);
+//			trace_mmc_clk(trace_info);
 		}
 		ios->old_rate = ios->clock;
 		ios->clk_ts = jiffies;
@@ -3245,7 +3242,7 @@ static int mmc_cmdq_do_erase(struct mmc_cmdq_req *cmdq_req,
 
 	fr = from;
 	nr = to - from + 1;
-	trace_mmc_blk_erase_start(arg, fr, nr);
+//	trace_mmc_blk_erase_start(arg, fr, nr);
 
 	qty = mmc_get_erase_qty(card, from, to);
 
@@ -3295,7 +3292,7 @@ static int mmc_cmdq_do_erase(struct mmc_cmdq_req *cmdq_req,
 	} while (!(cmd->resp[0] & R1_READY_FOR_DATA) ||
 		 (R1_CURRENT_STATE(cmd->resp[0]) == R1_STATE_PRG));
 out:
-	trace_mmc_blk_erase_end(arg, fr, nr);
+//	trace_mmc_blk_erase_end(arg, fr, nr);
 	return err;
 }
 
@@ -3310,7 +3307,7 @@ static int mmc_do_erase(struct mmc_card *card, unsigned int from,
 
 	fr = from;
 	nr = to - from + 1;
-	trace_mmc_blk_erase_start(arg, fr, nr);
+//	trace_mmc_blk_erase_start(arg, fr, nr);
 
 	qty = mmc_get_erase_qty(card, from, to);
 
@@ -3393,7 +3390,7 @@ static int mmc_do_erase(struct mmc_card *card, unsigned int from,
 		 (R1_CURRENT_STATE(cmd.resp[0]) == R1_STATE_PRG));
 out:
 
-	trace_mmc_blk_erase_end(arg, fr, nr);
+//	trace_mmc_blk_erase_end(arg, fr, nr);
 	return err;
 }
 
