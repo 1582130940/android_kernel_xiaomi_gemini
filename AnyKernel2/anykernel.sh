@@ -4,7 +4,7 @@
 ## AnyKernel setup
 # begin properties
 properties() { '
-kernel.string=Xtreme™ Project Kernel for Xiaomi MSM8996/8996Pro by 1582130940
+kernel.string=Xtreme™ Kernel for Xiaomi MSM8996/8996Pro by 1582130940
 do.devicecheck=1
 do.modules=0
 do.cleanup=1
